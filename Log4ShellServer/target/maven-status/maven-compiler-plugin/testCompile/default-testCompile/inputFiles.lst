@@ -1,0 +1,6 @@
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/test/java/ExecTemplateJDK7.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/test/java/ExecTemplateJDK8.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/test/java/ExecTemplateJDK8ADR.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/test/java/ExecTemplateJDK8ADRNoDisk.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/test/java/TailerListener.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/test/java/TestRuntime.java

@@ -1,0 +1,7 @@
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/main/java/jetty/JettyServer.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/main/java/jndi/LDAPRefServer.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/main/java/jndi/RMIRefServer.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/main/java/run/ServerStart.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/main/java/util/Mapper.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/main/java/util/Reflections.java
+/home/runner/work/vulnerable-spring-petclinic/vulnerable-spring-petclinic/Log4ShellServer/src/main/java/util/Transformers.java

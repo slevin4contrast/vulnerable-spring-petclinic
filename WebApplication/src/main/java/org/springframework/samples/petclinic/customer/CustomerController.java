@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Map;
 
@@ -157,8 +158,10 @@ public class CustomerController {
 	 */
 	@GetMapping("/customers/{customerId}/delete")
 	public String deleteCustomer(@PathVariable("customerId") String customerId) throws SQLException, IOException {
-		try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
-			statement.execute("DELETE FROM customers WHERE id = " + customerId);
+		try (Connection connection = dataSource.getConnection(); 
+		     PreparedStatement statement = connection.prepareStatement("DELETE FROM customers WHERE id = ?")) {
+			statement.setString(1, customerId);
+			statement.execute();
 		}
 		return "welcome";
 	}

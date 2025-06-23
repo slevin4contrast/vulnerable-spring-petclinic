@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.io.IOException;
 
@@ -27,9 +28,10 @@ public interface CustomerRepository extends Repository<Customer, Integer> {
 		Page<Customer> pagedCustomers = null;
 		
 		System.out.println("dataSource: " + dataSource);
-		try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
-			statement.executeQuery("SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE '%" + lastName +"%'");
-	        ResultSet resultSet = statement.getResultSet();
+		try (Connection connection = dataSource.getConnection(); 
+		     PreparedStatement statement = connection.prepareStatement("SELECT DISTINCT * FROM customers WHERE customers.last_name LIKE ?")) {
+			statement.setString(1, "%" + lastName + "%");
+	        ResultSet resultSet = statement.executeQuery();
 			List<Customer> ll = new LinkedList<Customer>();
 			while (resultSet.next()) {
 				Customer customer = new Customer();
