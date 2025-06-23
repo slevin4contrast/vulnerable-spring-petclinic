@@ -1,0 +1,15 @@
+jndi/RMIRefServer$MarshalOutputStream.class
+util/Reflections.class
+run/ServerStart.class
+jndi/LDAPRefServer$OperationInterceptor.class
+jndi/LDAPRefServer.class
+util/Mapper.class
+jndi/RMIRefServer.class
+jndi/RMIRefServer$2.class
+util/Transformers$TransformClass.class
+jetty/JettyServer$DownloadServlet.class
+jetty/JettyServer.class
+util/Transformers$TransformMethod.class
+jndi/RMIRefServer$1.class
+jndi/RMIRefServer$Dummy.class
+util/Transformers.class
