@@ -43,6 +43,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.samples.petclinic.system.XssSanitizer;
 
 /**
  * @author Juergen Hoeller
@@ -57,8 +58,11 @@ class PetController {
 
 	private final OwnerRepository owners;
 
-	public PetController(OwnerRepository owners) {
+	private final XssSanitizer xssSanitizer;
+
+	public PetController(OwnerRepository owners, XssSanitizer xssSanitizer) {
 		this.owners = owners;
+		this.xssSanitizer = xssSanitizer;
 	}
 
 	@ModelAttribute("types")
@@ -116,6 +120,9 @@ class PetController {
 			result.rejectValue("birthDate", "typeMismatch.birthDate");
 		}
 
+		// Sanitize pet name to prevent XSS
+		pet.setName(xssSanitizer.sanitize(pet.getName()));
+
 		owner.addPet(pet);
 		if (result.hasErrors()) {
 			model.put("pet", pet);
@@ -150,6 +157,9 @@ class PetController {
 		if (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate)) {
 			result.rejectValue("birthDate", "typeMismatch.birthDate");
 		}
+
+		// Sanitize pet name to prevent XSS
+		pet.setName(xssSanitizer.sanitize(pet.getName()));
 
 		if (result.hasErrors()) {
 			model.put("pet", pet);
