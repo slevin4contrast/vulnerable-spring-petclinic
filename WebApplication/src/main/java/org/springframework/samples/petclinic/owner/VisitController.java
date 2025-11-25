@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
+import org.springframework.samples.petclinic.system.XssSanitizer;
 
 /**
  * @author Juergen Hoeller
@@ -40,8 +41,11 @@ class VisitController {
 
 	private final OwnerRepository owners;
 
-	public VisitController(OwnerRepository owners) {
+	private final XssSanitizer xssSanitizer;
+
+	public VisitController(OwnerRepository owners, XssSanitizer xssSanitizer) {
 		this.owners = owners;
+		this.xssSanitizer = xssSanitizer;
 	}
 
 	@InitBinder
@@ -85,6 +89,9 @@ class VisitController {
 		if (result.hasErrors()) {
 			return "pets/createOrUpdateVisitForm";
 		}
+
+		// Sanitize visit description to prevent XSS
+		visit.setDescription(xssSanitizer.sanitize(visit.getDescription()));
 
 		owner.addVisit(petId, visit);
 		this.owners.save(owner);

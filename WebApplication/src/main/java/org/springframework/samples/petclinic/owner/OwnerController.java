@@ -50,6 +50,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.samples.petclinic.system.XssSanitizer;
 
 /**
  * @author Juergen Hoeller
@@ -68,11 +69,14 @@ class OwnerController {
 
 	private final EmailService emailService;
 
+	private final XssSanitizer xssSanitizer;
+
 	public OwnerController(OwnerRepository clinicService, @Qualifier("petclinicDataSource") DataSource dataSource,
-			EmailService emailService) {
+			EmailService emailService, XssSanitizer xssSanitizer) {
 		this.owners = clinicService;
 		this.dataSource = dataSource;
 		this.emailService = emailService;
+		this.xssSanitizer = xssSanitizer;
 	}
 
 	@InitBinder
@@ -97,6 +101,12 @@ class OwnerController {
 		if (result.hasErrors()) {
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 		}
+		// Sanitize input to prevent XSS
+		owner.setFirstName(xssSanitizer.sanitize(owner.getFirstName()));
+		owner.setLastName(xssSanitizer.sanitize(owner.getLastName()));
+		owner.setAddress(xssSanitizer.sanitize(owner.getAddress()));
+		owner.setCity(xssSanitizer.sanitize(owner.getCity()));
+		owner.setTelephone(xssSanitizer.sanitize(owner.getTelephone()));
 		emailService.sendEmail(owner);
 		this.owners.save(owner);
 		return "redirect:/owners/" + owner.getId();
@@ -173,7 +183,12 @@ class OwnerController {
 		if (result.hasErrors()) {
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 		}
-
+		// Sanitize input to prevent XSS
+		owner.setFirstName(xssSanitizer.sanitize(owner.getFirstName()));
+		owner.setLastName(xssSanitizer.sanitize(owner.getLastName()));
+		owner.setAddress(xssSanitizer.sanitize(owner.getAddress()));
+		owner.setCity(xssSanitizer.sanitize(owner.getCity()));
+		owner.setTelephone(xssSanitizer.sanitize(owner.getTelephone()));
 		owner.setId(ownerId);
 		this.owners.save(owner);
 		return "redirect:/owners/{ownerId}";
